@@ -1,13 +1,11 @@
-# http://www.ghanaweb.com/GhanaHomePage/NewsArchive/artikel.php?
-# ID=372752&comment=11965149#com
-#' Title
+#'
+#' Function to scrape comments from news article on ghanaweb.com
 #'
 #' @param ghWebURL 
+#' 
+#' @example http://www.ghanaweb.com/GhanaHomePage/NewsArchive/artikel.php?
+#' ID=372752&comment=11965149#com
 #'
-#' @return
-#' @export
-#'
-#' @examples
 ghWebCommentScraper <- function(ghWebURL)
 {
   require(RCurl)
