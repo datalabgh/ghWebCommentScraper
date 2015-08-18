@@ -14,8 +14,7 @@ ghWebCommentScraper <- function(ghWebURL)
   require(XML)
   require(lubridate)
   require(stringr)
-  require(tm)
-  
+
   # check that it is a NewsArticle
   newsURL <- str_split(ghWebURL, "/")
   
@@ -127,32 +126,9 @@ ghWebCommentScraper <- function(ghWebURL)
   comment.df <- data.frame(commentMatrix,
                        stringsAsFactors = FALSE)
 
-  myCorpus <- Corpus(VectorSource(comment.df$Comment))
-  
-  myCorpus <- tm_map(myCorpus, content_transformer(tolower))
-  
-  removeURL <- function(x) gsub("http[^[:space:]]*", "", x)
-  
-  myCorpus <- tm_map(myCorpus, content_transformer(removeURL))
-  
-  removeNumPunct <- function(x) gsub("[^[:alpha:][:space:]]*", "", x)
-  
-  myCorpus <- tm_map(myCorpus, content_transformer(removeNumPunct))
-  
-  myCorpus <- tm_map(myCorpus, stripWhitespace)
-  
-  myCorpus <- tm_map(myCorpus, removeWords, stopwords("english"))
-  
-  tdm <- TermDocumentMatrix(myCorpus,
-                            control = list(wordLengths = c(1, Inf)))
-  
-  m2 <- as.matrix(tdm)
-  
-  # cluster terms
-  distMatrix <- dist(scale(m2))
-  fit <- hclust(distMatrix, method = "ward.D")
-  
-  plot(fit)
-  rect.hclust(fit, k = 6)  # cut tree into 6 clusters
+  write.table(commentMatrix, 
+              file = "GhWebComments.txt", 
+              append = TRUE,
+              sep = ",")
   
 }
