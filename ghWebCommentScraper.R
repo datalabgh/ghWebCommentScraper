@@ -88,8 +88,6 @@ ghWebCommentScraper <- function(ghWebURL)
     
     nextCommentURL <- getURL(target_URLs[i], encoding="UTF-8")
     
-    #print(nextCommentURL)
-    
     urlPARSED <- htmlParse(nextCommentURL, asText = TRUE, encoding = "UTF-8")
     
     # convert output to text
